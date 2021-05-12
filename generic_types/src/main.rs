@@ -1,12 +1,58 @@
+fn largest_i32( list: &[i32]) -> i32 {
+
+    let mut largest = list[0];
+
+    for &item in list {   if item > largest { largest = item; }   }
+    
+    largest
+}
+
+fn largest_char( list: &[char]) -> char {
+
+    let mut largest = list[0];
+
+    for &item in list  {   if item > largest { largest = item; }   }
+
+    largest
+}
+
+//fn largest<T>( list: &[T]) -> T {}
+// sniped, because lacking of neccessary type restriction (a.o. the trait std::cmp::PartialOrd)
+
+
+
+
+fn main() {
+
+    let number_list = vec![34, 50, 25, 100, 65];
+    let result = largest_i32( &number_list);
+    println!("The largest number is: {}", result);
+
+    let char_list = vec!['y', 'm', 'a', 'q'];
+    let result = largest_char( &char_list);
+    println!("The largest char is: {}", result);
+
+
+
+
+    let p = Point1Typed { x: 5, y: 10 };
+    println!("p.x = {} and p.y = {}", p.x(), p.y());
+
+    
+    let p1 = Point2Typed { x: 5, y: 10.4 };
+    let p2 = Point2Typed { x: "Hello", y: 'c' };
+    let p3 = p1.mixup(p2);
+
+    println!("p3.x = {}  p3.y = {}", p3.x, p3.y);
+}
+
+
+
 struct Point1Typed<T> { x: T, y: T, }
 
 impl<T> Point1Typed<T> {
-    fn x(&self) -> &T { 
-        &self.x 
-    }
-    fn y(&self) -> &T { 
-        &self.y 
-    }
+    fn x(&self) -> &T { &self.x }
+    fn y(&self) -> &T { &self.y }
 }
 
 impl Point1Typed<f32> {
@@ -31,14 +77,5 @@ impl<T, U> Point2Typed<T, U> {
 
 
 
-fn main() {
-    let p = Point1Typed { x: 5, y: 10 };
-    println!("p.x = {} and p.y = {}", p.x(), p.y());
 
-    
-    let p1 = Point2Typed { x: 5, y: 10.4 };
-    let p2 = Point2Typed { x: "Hello", y: 'c' };
-    let p3 = p1.mixup(p2);
 
-    println!("p3.x = {}  p3.y = {}", p3.x, p3.y);
-}
