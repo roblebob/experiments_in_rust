@@ -1,7 +1,7 @@
 fn largest_i32( list: &[i32]) -> i32 {
 
     let mut largest = list[0];
-
+    
     for &item in list {   if item > largest { largest = item; }   }
     
     largest
@@ -10,13 +10,13 @@ fn largest_i32( list: &[i32]) -> i32 {
 fn largest_char( list: &[char]) -> char {
 
     let mut largest = list[0];
-
+    
     for &item in list  {   if item > largest { largest = item; }   }
-
+    
     largest
 }
 
-fn largest_with_copy<T: PartialOrd + Copy >( list: &[T]) -> T {
+fn largest_copy<T: PartialOrd + Copy >( list: &[T]) -> T {
 
     let mut largest = list[0];
 
@@ -25,9 +25,24 @@ fn largest_with_copy<T: PartialOrd + Copy >( list: &[T]) -> T {
     largest
 }
 
+fn largest_clone<T: PartialOrd + Clone >( list: &[T]) -> T {
+
+    let mut largest = list[0].clone();
+
+    for item in list {   if item > &largest { largest = item.clone() }   }
+
+    largest
+}
 
 
+fn largest_ref<T: PartialOrd> ( list: &[T]) -> &T {
 
+    let mut largest = &list[0];
+
+    for item in list {   if item > largest { largest = &item }   }
+
+    largest
+}
 
 
 
@@ -35,13 +50,20 @@ fn largest_with_copy<T: PartialOrd + Copy >( list: &[T]) -> T {
 fn main() {
 
     let number_list = vec![34, 50, 25, 100, 65];
-    let result = largest_with_copy( &number_list);
+    let result = largest_copy( &number_list);
     println!("The largest number is: {}", result);
 
     let char_list = vec!['y', 'm', 'a', 'q'];
-    let result = largest_with_copy( &char_list);
+    let result = largest_copy( &char_list);
     println!("The largest char is: {}", result);
 
+
+    let string_list = vec!["hallo", "hillalo", "hulo", "xylon", "sgugug"];
+    let result = largest_clone( &string_list);
+    println!("The largest string is: {}", result);
+
+    let result = largest_ref( &string_list);
+    println!("The largest string 2: {}", result);
 
 
 
