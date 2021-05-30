@@ -92,4 +92,43 @@ fn main() {
 
 
 
+
+
+
+
+
+
+    {
+        use generic::lifetime::longest;
+        
+
+        let string1 = String::from("abcdefg");
+        let result;
+        let string2: String;
+        {
+            string2 = String::from("xyz");
+
+            result = longest(string1.as_str(), string2.as_str());
+        }
+        println!("The longest string is {}", result);
+
+
+
+        use generic::lifetime::ImportantExcerpt;        
+        
+        let novel = String::from("Call me Ishmael. Some years ago....");
+        let first_sentence = novel.split('.').next().expect("Coul not find a '.'");
+        let i = ImportantExcerpt {
+            part: first_sentence,
+        };
+        println!("{}", i.part);
+    }
+
+
+
+
+    let s: &'static str = "I have a static lifetime.";
+
+
+
 }

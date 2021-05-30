@@ -669,7 +669,7 @@ When returning a reference from a function, the lifetime parameter for the retur
 
 #### [Lifetime Elision](https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html#lifetime-elision)
 
-very reference has a lifetime and that you need to specify lifetime parameters for functions or structs that use references.     
+Every reference has a lifetime and that you need to specify lifetime parameters for functions or structs that use references.     
 ... some can be inferred by the compiler, but only when no ambiguity
 
 
@@ -680,3 +680,10 @@ very reference has a lifetime and that you need to specify lifetime parameters f
     fn foo<'a, 'b>(x: &'a i32, y: &'b i32);
     // ...
     ```
+
+2)  if there is exactly one input lifetime parameter, that lifetime is assigned to all  output lifetime parameters:
+    ```rust
+    fn foo<'a>(x: &'a i32) -> &'a i32
+    ```
+
+3)  if there are multiple input lifetime parameters, but one of them is `&self` or `&mut self` because this is a method, the lifetime of `self` is assigned to all output lifetime parameters.
