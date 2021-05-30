@@ -687,3 +687,10 @@ Every reference has a lifetime and that you need to specify lifetime parameters 
     ```
 
 3)  if there are multiple input lifetime parameters, but one of them is `&self` or `&mut self` because this is a method, the lifetime of `self` is assigned to all output lifetime parameters.
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+# Test
+
+[last](https://doc.rust-lang.org/book/ch11-01-writing-tests.html#checking-results-with-the-assert-macro)
