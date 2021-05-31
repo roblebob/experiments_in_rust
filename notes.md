@@ -693,4 +693,4 @@ Every reference has a lifetime and that you need to specify lifetime parameters 
 
 # Test
 
-[last](https://doc.rust-lang.org/book/ch11-01-writing-tests.html#checking-results-with-the-assert-macro)
+[last](https://doc.rust-lang.org/book/ch11-01-writing-tests.html#testing-equality-with-the-assert_eq-and-assert_ne-macros)
