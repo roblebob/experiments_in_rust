@@ -696,4 +696,4 @@ Every reference has a lifetime and that you need to specify lifetime parameters 
 adding the `#[derive(PartialEq, Debug)]` annotation to your `struct`  or `enum` definition, to use the `assert_eq!` and `assert_ne!` macros (_derivable traits_)
 
 
-[last](https://doc.rust-lang.org/book/ch11-01-writing-tests.html#adding-custom-failure-messages)
+[last](https://doc.rust-lang.org/book/ch11-02-running-tests.html#controlling-how-tests-are-run)
