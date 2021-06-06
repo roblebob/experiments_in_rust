@@ -696,4 +696,41 @@ Every reference has a lifetime and that you need to specify lifetime parameters 
 adding the `#[derive(PartialEq, Debug)]` annotation to your `struct`  or `enum` definition, to use the `assert_eq!` and `assert_ne!` macros (_derivable traits_)
 
 
-[last](https://doc.rust-lang.org/book/ch11-02-running-tests.html#controlling-how-tests-are-run)
+<br><br><br>
+
+#### [Running Tests in Parallel (_default_) or Consecutively:](https://doc.rust-lang.org/book/ch11-02-running-tests.html#running-tests-in-parallel-or-consecutively)
+
+```shell
+$ cargo test -- --test-threads=1
+```
+
+#### [Showing Function Output](https://doc.rust-lang.org/book/ch11-02-running-tests.html#showing-function-output)
+
+```shell
+$ cargo test -- --show-output
+```
+
+#### [Running Single Tests](https://doc.rust-lang.org/book/ch11-02-running-tests.html#running-single-tests)
+
+```shell
+$ cargo test <name-of-the-test-function>
+```
+
+#### [Filtering to Run Multiple Tests](https://doc.rust-lang.org/book/ch11-02-running-tests.html#filtering-to-run-multiple-tests)
+
+```shell
+$ cargo test <part-of-all-the-names-of-the-test-functions-to-be-tested>
+```
+
+#### [Running only the ignored tests](https://doc.rust-lang.org/book/ch11-02-running-tests.html#ignoring-some-tests-unless-specifically-requested)
+
+```shell
+$ cargo test -- --ignored
+```
+
+
+
+
+<br><br><br>
+
+[last](https://doc.rust-lang.org/book/ch11-03-test-organization.html#test-organization)
