@@ -1,5 +1,5 @@
 mod rectangle;
-mod adder;
+pub mod adder;
 mod greeting;
 mod guess;
 mod using_result;

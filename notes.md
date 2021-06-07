@@ -729,8 +729,13 @@ $ cargo test -- --ignored
 ```
 
 
+<br><br>
+#### [Running a particular integration test](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-directory) (e.g.: `test/integration_test.rs`)
 
+```shell
+cargo test --test integration_test
+```
 
 <br><br><br>
 
-[last](https://doc.rust-lang.org/book/ch11-03-test-organization.html#test-organization)
+[last](https://doc.rust-lang.org/book/ch11-03-test-organization.html#submodules-in-integration-tests)
