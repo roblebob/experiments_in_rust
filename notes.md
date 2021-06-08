@@ -728,13 +728,29 @@ $ cargo test <part-of-all-the-names-of-the-test-functions-to-be-tested>
 $ cargo test -- --ignored
 ```
 
+<br><br><br><br><br><br>
 
-<br><br>
-#### [Running a particular integration test](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-directory) (e.g.: `test/integration_test.rs`)
+## Integration Tests
+
++ go in seperate folder `tests/`
+
+```rust
+use adder;
+
+#[test]
+fn it_adds_two() {
+    assert_eq!(4, adder::add_two(2));
+}
+```
+
++ [Running a particular integration test](https://doc.rust-lang.org/book/ch11-03-test-organization.html#the-tests-directory) (e.g.: `test/integration_test.rs`)
 
 ```shell
 cargo test --test integration_test
 ```
+
++ each file is compiled as a seperated _crate_, in contrast to those in `src/`
++
 
 <br><br><br>
 
