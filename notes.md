@@ -752,6 +752,8 @@ cargo test --test integration_test
 + each file is compiled as a seperated _crate_, in contrast to those in `src/`
 +
 
-<br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-[last](https://doc.rust-lang.org/book/ch12-03-improving-error-handling-and-modularity.html#refactoring-to-improve-modularity-and-error-handling)
+# Minigrep
+
+[last](https://doc.rust-lang.org/book/ch12-03-improving-error-handling-and-modularity.html#fixing-the-error-handling)
