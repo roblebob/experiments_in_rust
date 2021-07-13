@@ -756,4 +756,80 @@ cargo test --test integration_test
 
 # Minigrep
 
-[last](https://doc.rust-lang.org/book/ch12-03-improving-error-handling-and-modularity.html#fixing-the-error-handling)
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+# Functional
+
+## Closures
+
++ anonymous function that capture their environment
+
++ ```rust
+  fn  add_one_v1   (x: u32) -> u32 { x + 1 }
+  let add_one_v2 = |x: u32| -> u32 { x + 1 };
+  let add_one_v3 = |x|             { x + 1 };
+  let add_one_v4 = |x|               x + 1  ;
+  ```
+
+  `add_one_v3`,  `add_one_v4`  calling the closures is required to be able to compile,  because the types will be inferred from their usage   
+
++ ```rust
+  let example_closure = |x| x;
+
+  let s = example_closure(String::from("hello"));
+  let n = example_closure(5);
+  ```
+
+  will cause compile error since the compiler infers the type of `x` to be `String` which is then locked
+
+
+### memoization / lazy evalutation
+
++ to make a struct that hold closures, and structs need to know the type of their fields =>  need to specify the types of the closures
+
++ each closure instance has its unique anonymous typed
+  + even if two closures have the the same signature, their types are still different
+  + to define struct, enums, or function parameters that use closures   
+   => generics and trait bounds
+
++ `Fn` traits (`Fn`, `FnMut`, or `FnOnce`)
+
+```rust
+struct Cacher<T>
+where
+    T: Fn(u32) -> u32
+{
+    calculation: T,
+    value: Option<u32>,
+}
+
+
+impl<T> Cacher<T>
+where
+    T: Fn(u32) -> u32,
+{
+    fn new(calculation: T) -> Cacher<T> {
+        Cacher {
+            calculation,
+            value: None,
+        }
+    }
+
+    fn value(&mut self, arg: u32) -> u32 {
+        match self.value {
+            Some(v) => v,
+            None => {
+                let v = (self.calculation)(arg);
+                self.value = Some(v);
+                v
+            }
+        }
+    }
+}
+```
+
+
+[last](https://doc.rust-lang.org/book/ch13-01-closures.html#limitations-of-the-cacher-implementation)
