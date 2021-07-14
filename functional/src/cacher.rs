@@ -1,6 +1,16 @@
-enum Status<T> {
+pub enum Status<T> {
     Cached(T),
     Computed(T),
+}
+
+impl<T> Status<T>
+{
+    pub fn unwrap(self) -> T {
+        match self {
+            Status::Cached(x) => x,
+            Status::Computed(x) => x,
+        }
+    }
 }
 
 
@@ -27,21 +37,27 @@ where
     }
 
     pub fn value(&mut self, arg: u32) -> u32 {
+        self.value_with_status(arg).unwrap()
+    }
+
+
+
+    pub fn value_with_status(&mut self, arg: u32) -> Status<u32> {
 
         match self.argument {
             Some(x) => {
-                if x==arg {self.value.unwrap()} 
+                if x==arg {Status::Cached(self.value.unwrap())} 
                 else {self.helper(arg)}
               },
             None => self.helper(arg),
         }
     }
 
-    fn helper(&mut self, arg: u32) -> u32 {
+    fn helper(&mut self, arg: u32) -> Status<u32> {
         self.argument = Some(arg);        
         let v = (self.calculation)(arg);
         self.value = Some(v);
-        v    
+        Status::Computed(v)
     }
 }
 
