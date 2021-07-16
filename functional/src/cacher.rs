@@ -1,3 +1,6 @@
+use std::collections::HashMap;
+
+
 pub enum Status<T> {
     Cached(T),
     Computed(T),
@@ -19,9 +22,8 @@ pub struct Cacher<F>
 where
     F: Fn(u32) -> u32
 {
-    argument: Option<u32>,
+    cache_map: HashMap<u32,u32>,
     calculation: F,
-    value: Option<u32>,
 }
 
 impl<F> Cacher<F>
@@ -30,9 +32,8 @@ where
 {
     pub fn new(calculation: F) -> Cacher<F> {
         Cacher {
-            argument: None,
+            cache_map: HashMap::new(),
             calculation,
-            value: None,
         }
     }
 
@@ -42,20 +43,13 @@ where
 
     pub fn value_with_status(&mut self, arg: u32) -> Status<u32> {
 
-        match self.argument {
-            Some(x) => {
-                if x==arg {Status::Cached(self.value.unwrap())} 
-                else {self.helper(arg)}
-              },
-            None => self.helper(arg),
+        if self.cache_map.contains_key(&arg) {
+            Status::Cached(self.cache_map[&arg])
+        } else {
+            let v = (self.calculation)(arg);
+            self.cache_map.insert(arg, v);
+            Status::Computed(v)
         }
-    }
-
-    fn helper(&mut self, arg: u32) -> Status<u32> {
-        self.argument = Some(arg);        
-        let v = (self.calculation)(arg);
-        self.value = Some(v);
-        Status::Computed(v)
     }
 }
 
