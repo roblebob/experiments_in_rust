@@ -20,7 +20,7 @@ impl<T> Status<T>
 
 pub struct Cacher<T,F>
 where
-    T: Debug + Copy,
+    T: Debug + Clone,
     F: Fn(T) -> T
 {
     cache_map: HashMap<String,T>,
@@ -29,7 +29,7 @@ where
 
 impl<T,F> Cacher<T,F>
 where
-    T: Debug + Copy,
+    T: Debug + Clone,
     F: Fn(T) -> T
 {
     pub fn new(calculation: F) -> Cacher<T,F> {
@@ -48,10 +48,10 @@ where
         let key: String = format!("{:?}", arg);
 
         if self.cache_map.contains_key(&key) {
-            Status::Cached(self.cache_map[&key])
+            Status::Cached(self.cache_map[&key].clone())
         } else {
             let v = (self.calculation)(arg);
-            self.cache_map.insert(key, v);
+            self.cache_map.insert(key, v.clone());
             Status::Computed(v)
         }
     }
@@ -105,5 +105,13 @@ mod tests {
         let mut c = Cacher::new(|a| a);
         let v = c.value(1.1);
         assert_eq!(v, 1.1);
+    }
+
+    #[test]
+    fn call_with_strings() {
+        let mut c = Cacher::new(|a: String| a.clone());
+        let ar = "Hallo".to_string();
+        let v = c.value(ar.clone());
+        assert_eq!(v, ar);
     }
 }
