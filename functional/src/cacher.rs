@@ -18,41 +18,43 @@ impl<T> Status<T>
     }
 }
 
-pub struct Cacher<T,F>
+pub struct Cacher<X,F,Y>
 where
-    T: Debug + Clone,
-    F: Fn(T) -> T
+    X: Debug + Clone,
+    F: Fn(X) -> Y,
+    Y: Clone,
 {
-    cache_map: HashMap<String,T>,
+    cache_map: HashMap<String,(X,Y)>,
     calculation: F,
 }
 
-impl<T,F> Cacher<T,F>
+impl<X,F,Y> Cacher<X,F,Y>
 where
-    T: Debug + Clone,
-    F: Fn(T) -> T
+    X: Debug + Clone,
+    F: Fn(X) -> Y,
+    Y: Clone,
 {
-    pub fn new(calculation: F) -> Cacher<T,F> {
+    pub fn new(calculation: F) -> Cacher<X,F,Y> {
         Cacher {
             cache_map: HashMap::new(),
             calculation,
         }
     }
 
-    pub fn value(&mut self, arg: &T) -> T {
+    pub fn value(&mut self, arg: &X) -> Y {
         self.value_with_status(arg).unwrap()
     }
 
-    pub fn value_with_status(&mut self, arg: &T) -> Status<T> {
+    pub fn value_with_status(&mut self, arg: &X) -> Status<Y> {
 
         let key: String = format!("{:?}", *arg);
 
         if self.cache_map.contains_key(&key) {
-            Status::Cached(self.cache_map[&key].clone())
+            Status::Cached(self.cache_map[&key].1.clone())
         } else {
             let a = (*arg).clone();
             let v = (self.calculation)(a);
-            self.cache_map.insert(key, v.clone());
+            self.cache_map.insert(key, ((*arg).clone(), v.clone()));
             Status::Computed(v)
         }
     }
@@ -114,5 +116,13 @@ mod tests {
         let ar = "Hallo".to_string();
         let v = c.value(&ar);
         assert_eq!(v, ar);
+    }
+
+    #[test]
+    fn call_length_of_a_string_slice() {
+        let mut c = Cacher::new(|a: &str| a.len());
+        let ar = "hello";
+        let v = c.value(&ar); 
+        assert_eq!(v, 5); 
     }
 }
