@@ -871,4 +871,21 @@ This technique is mostly useful when passing a closure to a new thread to move t
 __Note:__ `move` closures may still implement `Fn` or `FnMut`, even though they capture variables by move. This is because the traits implemented by a closure type are determined by what the closure does with captured values, not how it captures them. The `move` keyword only specifies the latter.
 
 
-[last](https://doc.rust-lang.org/book/ch13-02-iterators.html)
+
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+# Smart Pointers
+
++ difference between:
+  + ___references___ are pointers that only borrow data
+  + ___smart pointers___ own the data they point to (_...in many cases!!!_)
+
++ Implementation
+  + usually by using _structs_
+  + traits
+    + `Deref` allows an instance of the smart pointer struct to behave like a reference so you can write code that works with either references or smart pointers
+    + `Drop` allows you to customize the code that is run when an instance of the smart pointer goes out of scope
