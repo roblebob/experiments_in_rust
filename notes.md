@@ -889,3 +889,20 @@ __Note:__ `move` closures may still implement `Fn` or `FnMut`, even though they 
   + traits
     + `Deref` allows an instance of the smart pointer struct to behave like a reference so you can write code that works with either references or smart pointers
     + `Drop` allows you to customize the code that is run when an instance of the smart pointer goes out of scope
+
+<br><br>
+
+###  `Box<T>` to Point to Data on the Heap
+
+
++ When you have a type whose size can’t be known at compile time and you want to use a value of that type in a context that requires an exact size
+
++ When you have a large amount of data and you want to transfer ownership but ensure the data won’t be copied when you do so
+
+  + Normally, transferring ownership of a large amount of data can take a long time because the data is copied around on the stack.
+  + To improve performance in this situation, we can store the large amount of data on the heap in a box. Then, only the small amount of pointer data is copied around on the stack, while the data it references stays in one place on the heap.
+
++ When you want to own a value and you care only that it’s a type that implements a particular trait rather than being of a specific type
+
+
+[last](https://doc.rust-lang.org/book/ch15-01-box.html#using-a-boxt-to-store-data-on-the-heap)
