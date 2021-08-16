@@ -897,6 +897,7 @@ __Note:__ `move` closures may still implement `Fn` or `FnMut`, even though they 
 
 + When you have a type whose size can’t be known at compile time and you want to use a value of that type in a context that requires an exact size
 
+
 + When you have a large amount of data and you want to transfer ownership but ensure the data won’t be copied when you do so
 
   + Normally, transferring ownership of a large amount of data can take a long time because the data is copied around on the stack.
@@ -904,5 +905,19 @@ __Note:__ `move` closures may still implement `Fn` or `FnMut`, even though they 
 
 + When you want to own a value and you care only that it’s a type that implements a particular trait rather than being of a specific type
 
++ Enabling Recursive Types
+  +  At compile time, Rust needs to know how much space a type takes up
 
-[last](https://doc.rust-lang.org/book/ch15-01-box.html#using-a-boxt-to-store-data-on-the-heap)
+
+
+<br><br><br>
+
++ Boxes provide only the indirection and heap allocation;
+   + they don’t have any other special capabilities, like those we’ll see with the other smart pointer types.
+
+   + They also don’t have any performance overhead that these special capabilities incur, so they can be useful in cases like the cons list where the indirection is the only feature we need. We’ll look at more use cases for boxes in Chapter 17, too.
+
+
+
+
+[last](https://doc.rust-lang.org/book/ch15-02-deref.html#defining-our-own-smart-pointer)
