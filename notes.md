@@ -920,4 +920,4 @@ __Note:__ `move` closures may still implement `Fn` or `FnMut`, even though they 
 
 
 
-[last](https://doc.rust-lang.org/book/ch15-02-deref.html#defining-our-own-smart-pointer)
+[last](https://doc.rust-lang.org/book/ch15-02-deref.html#implicit-deref-coercions-with-functions-and-methods)
