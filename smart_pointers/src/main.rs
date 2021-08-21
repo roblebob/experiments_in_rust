@@ -11,7 +11,9 @@ fn main() {
     let list = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
     assert_eq!(format!("{:?}", list), "Cons(1, Cons(2, Cons(3, Nil)))");
 
-    
+
+    use smart_pointers::the_deref_trait::MyBox;    
+
     let x = 5;
     let y1 = &x;
     let y2 = Box::new(x);
@@ -22,23 +24,39 @@ fn main() {
     assert_eq!(5, *y2);    // deref an instance of a box pointing to a copied value of x
     assert_eq!(5, *y3);
 
+
+    let m = MyBox::new(String::from("Rust"));
+
+    fn hello(name: &str) {
+        println!("Hello, {}!", name);
+    }
+
+    hello(&m);  // thank's to deref coersions due to the Deref implementation in MyBox
+
+    hello(&(*m)[..]);  // ... without
+
+
+
+
+    let c = CustomSmartPointer {
+        data: String::from("my stuff"),
+    };
+    let d = CustomSmartPointer {
+        data: String::from("other stuff"),
+    };
+    println!("CustomSmartPointer created.");
 }
 
-// Note: this version will not store its data on the heap; focus: it's pointer like behavior 
-struct MyBox<T>(T);  // tupel struct with one element of type T
 
-impl<T> MyBox<T> {
-    fn new(x: T) -> MyBox<T> {
-        MyBox(x)
+
+struct CustomSmartPointer {
+    data: String,
+}
+
+impl Drop for CustomSmartPointer {
+    fn drop(&mut self) {
+        println!("Dropping CustomSmartPointer with data `{}`!", self.data);
     }
 }
 
-use std::ops::Deref;
 
-impl<T> Deref for MyBox<T> {
-    type Target = T;
-
-    fn deref(&self) -> &Self::Target {
-        &self.0
-    }
-}
