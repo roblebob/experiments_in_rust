@@ -919,5 +919,81 @@ __Note:__ `move` closures may still implement `Fn` or `FnMut`, even though they 
 
 
 
+<br><br>
+#### `Deref` Trait
 
-[last](https://doc.rust-lang.org/book/ch15-02-deref.html#implicit-deref-coercions-with-functions-and-methods)
+
+<br><br>
+#### `Drop` Trait
+
+
+
+
+<br><br><br><br>
+
+### `Rc<T>`  (___Reference Counting___)
+
++ to enable multiple ownership
+
++ keeps track of the number of references to a value
+
++ if zero references, the value can be cleaned up without any references becoming invalid.
+
+_Usage:_
+
++ want to ___allocate___ some data on the ___heap___ for multiple parts of our program to read and we can’t determine at compile time which part will finish using the data last
+
+  + If we knew which part would finish last, we could just make that part the data’s owner, and the normal ownership rules enforced at compile time would take effect.
+
++ only ___single-threaded___ scenarios
+
+
+
+<br><br><br><br>
+
+### `RefCell<T>` and the Interior Mutability Pattern
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+# Concurrency (and/ or Parallelism)
+
+```rust
+use std::thread;
+use std::time::Duration;
+
+fn main() {
+    let handle = thread::spawn(|| {
+        for i in 1..10 {
+            println!("hi number {} from the spawned thread!", i);
+            thread::sleep(Duration::from_millis(1));
+        }
+    });
+
+    for i in 1..5 {
+        println!("hi number {} from the main thread!", i);
+        thread::sleep(Duration::from_millis(1));
+    }
+
+    handle.join().unwrap();
+}
+```
