@@ -673,18 +673,19 @@ Every reference has a lifetime and that you need to specify lifetime parameters 
 ... some can be inferred by the compiler, but only when no ambiguity
 
 
-1)  each parameter that is a reference gets its own lifetime parameter.     
-    ```rust
-    fn foo<'a>(x: &'a i32);
+1)  each parameter that is a reference gets its own lifetime parameter.
 
-    fn foo<'a, 'b>(x: &'a i32, y: &'b i32);
-    // ...
-    ```
+```rust
+fn foo<'a>(x: &'a i32);
+
+fn foo<'a, 'b>(x: &'a i32, y: &'b i32);
+// ...
+```
 
 2)  if there is exactly one input lifetime parameter, that lifetime is assigned to all  output lifetime parameters:
-    ```rust
-    fn foo<'a>(x: &'a i32) -> &'a i32
-    ```
+```rust
+fn foo<'a>(x: &'a i32) -> &'a i32
+```
 
 3)  if there are multiple input lifetime parameters, but one of them is `&self` or `&mut self` because this is a method, the lifetime of `self` is assigned to all output lifetime parameters.
 
@@ -997,3 +998,36 @@ fn main() {
     handle.join().unwrap();
 }
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
+# Advanced Features
+
+<br><br><br><br><br><br><br><br><br>
+
+## Unsafe Rust
+
+<br><br><br><br><br><br><br><br><br>
+
+# Advance traits
